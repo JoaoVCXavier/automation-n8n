@@ -1,2 +1,2 @@
-# automação-n8n
+# automation-n8n
 # Automação &amp; IA
