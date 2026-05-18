@@ -1,0 +1,479 @@
+{
+  "name": "Disparo em Massa",
+  "nodes": [
+    {
+      "parameters": {
+        "unit": "minutes"
+      },
+      "id": "c2897bad-ff5e-4abc-94f9-619d33ca7ea7",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        592,
+        544
+      ],
+      "webhookId": "2987fe5c-e96e-433b-ba83-c95cadc6d0c9"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sua url/sendMedia/disparo",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "SUA_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"{{ $('Chupa Cabra').item.json['Telefone '] }}\",\n   \"media\": \"url da imagem\" ,\n  \"mediatype\": \"image\",\n  \"caption\": \"mensagem que sera enviada\"\n}",
+        "options": {}
+      },
+      "id": "eb006ab0-a704-42d8-a27c-17dd83c3a903",
+      "name": "Evolution 2.1.0 - Texto",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        432
+      ],
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Manual",
+        "height": 213.41086834998737,
+        "width": 211.58996364362372
+      },
+      "id": "76793911-99a0-4c73-a6d5-89a0c37d2e83",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        384
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6e2064bb-6e23-49f7-be8e-c3510e2f7d87",
+      "name": "Teste",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -176,
+        448
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA",
+          "mode": "list",
+          "cachedResultName": "DISPARO EM MASSA 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "ed74a41e-6053-4e33-8d14-eb7169513bd7",
+      "name": "Chupa Cabra",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        128,
+        448
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "oENFkIp5od0o6k5R",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "da1a9391-dbf6-498b-a279-5687e01e3e9d",
+      "name": "Repetidor",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        368,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "minutes"
+      },
+      "id": "b0306370-11e8-4e7e-8969-165ecb0e57ff",
+      "name": "Respira",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1504,
+        480
+      ],
+      "webhookId": "2987fe5c-e96e-433b-ba83-c95cadc6d0c9"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        832,
+        192
+      ],
+      "id": "57956db1-f87e-46f4-a914-77a422d0a048",
+      "name": "Finalizador"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA",
+          "mode": "list",
+          "cachedResultName": "DISPARO EM MASSA 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Chupa Cabra').item.json.row_number }}",
+            "Status": "Falhou"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Nome ",
+              "displayName": "Nome ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Telefone ",
+              "displayName": "Telefone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "23a66e92-824e-4f74-b5d7-1a189462fe67",
+      "name": "Não Enviado",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1152,
+        592
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "oENFkIp5od0o6k5R",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        1040
+      ],
+      "id": "11a86050-5f38-4b6b-861b-36986c98980b",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA",
+          "mode": "list",
+          "cachedResultName": "DISPARO EM MASSA 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12c7I-Q33mckwSolmJ4amTN8CJPAt_3Km9DKE3uGBHRA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Chupa Cabra').item.json.row_number }}",
+            "Status": "Ok"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Nome ",
+              "displayName": "Nome ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Telefone ",
+              "displayName": "Telefone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "70addeb0-d0d9-4ec4-8484-4f134fdabc79",
+      "name": "Enviado",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1152,
+        320
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "oENFkIp5od0o6k5R",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Teste": [
+      {
+        "json": {},
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Evolution 2.1.0 - Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evolution 2.1.0 - Texto": {
+      "main": [
+        [
+          {
+            "node": "Enviado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Não Enviado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Teste": {
+      "main": [
+        [
+          {
+            "node": "Chupa Cabra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chupa Cabra": {
+      "main": [
+        [
+          {
+            "node": "Repetidor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repetidor": {
+      "main": [
+        [
+          {
+            "node": "Finalizador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respira": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Não Enviado": {
+      "main": [
+        [
+          {
+            "node": "Respira",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Repetidor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviado": {
+      "main": [
+        [
+          {
+            "node": "Respira",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d14b6648-c887-423d-8629-b861f5df5c65",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e63c175541b7dd307ce361b098719314089d37fe335949784ae243ccd441f4bc"
+  },
+  "id": "QDe5AK0M3BuupUrd",
+  "tags": [
+    {
+      "updatedAt": "2026-04-16T17:25:13.586Z",
+      "createdAt": "2026-04-16T17:25:13.586Z",
+      "id": "zSwbaFoLZP6JLrR5",
+      "name": "MONEY BET"
+    }
+  ]
+}
